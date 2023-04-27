@@ -1,0 +1,8 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+.popper {
+    background-color: $popper-color;
+    padding: 6px 0;
+    @include radius(4px)
+}

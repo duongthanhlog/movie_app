@@ -1,0 +1,31 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+
+.button {
+    padding: 0 16px;
+    border: none;
+    outline: none;
+    height: 32px;
+    @include dflex(row, center, center);
+    @include radius(4px);
+    cursor: pointer;
+    &.primary {
+        background-color: transparent;
+        &:hover {
+            background-color: $hover-button-primary-color;
+        }
+    }
+
+    .children {
+        flex-shrink: 0;
+    }
+}
+
+.leftIcon + .children {
+    margin-left: 4px;
+}
+
+.children + .rightIcon {
+    margin-left: 4px;
+}

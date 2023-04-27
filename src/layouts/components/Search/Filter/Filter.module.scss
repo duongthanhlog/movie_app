@@ -1,0 +1,24 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+.filterItem {
+    padding: 0 16px;
+    color: rgb(189, 189, 189);
+    font-size: 1.6rem;
+    background-color: transparent;
+    @include radius(0);
+    @include size(235px, 48px);
+    @include dflex(row, flex-start, center);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+        background-color: $popper-item-hover-color;
+        color: white;
+    }
+
+    &.active {
+        color: var(--main-color);
+    }
+}
+

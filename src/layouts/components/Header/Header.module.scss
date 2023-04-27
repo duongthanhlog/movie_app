@@ -1,0 +1,53 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+.container {
+    background-color: var( --secondary-color);
+}
+
+.header {
+    position: relative;
+    height: $header-height;
+    @include dflex(row, null, center);
+    width: 100%;
+}
+
+.logo {
+    margin-right: 4px;
+}
+
+.menuButton {
+    font-size: 1.4rem;
+    color: white;
+    margin-left: 4px;
+
+    .menuIcon {
+        font-size: 2.2rem;
+    }
+}
+
+
+
+.proLogo {
+    color: white;
+    position: relative;
+    height: 36px;
+}
+
+.sperate {
+    @include size(2px, 58%);
+    top: 50%;
+    background-color: #424242;
+    margin: 0 8px;
+}
+
+
+
+.watchList, .signIn, .languages {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    height: 36px;
+}
+
+
