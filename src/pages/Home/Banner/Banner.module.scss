@@ -5,17 +5,15 @@
 .container {
     position: relative;
 
-    img {
-        width: 100%;
-        height: 500px;
-        object-fit: cover;
-        object-position: center;
+    .banner {
+        background-position: top;
+        background-size: cover;
+        padding-top: 50%
     }
 
     .overlay {
-        width: 100%;
+        @include size(100%);
         background: linear-gradient(0deg,var(--primary-color) 10%, rgba(26, 25, 25, 0.103));
-        height: 100%;
         position: absolute;
         z-index: 1;
     }

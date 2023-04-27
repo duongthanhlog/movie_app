@@ -1,0 +1,68 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+.container {
+    margin-top: 60px;
+}
+.headingSection {
+    color: var(--main-color);
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+.title {
+    position: relative;
+    font-size: 2.4rem;
+    color: white;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    font-weight: 600;
+    &::before {
+        @include after(0, 0, 0 ,0) {
+            width: 4px;
+            height: 100%;
+            background-color: var(--main-color);
+            @include radius(4px);
+        }
+    }
+}
+.subTitle {
+    color: #e2e2e2b3;
+    margin:0 0 16px 0;
+}
+
+
+.caroselContainer {
+    position: relative;
+    margin-top: 20px;
+    .rightButton, .leftButton {
+        position: absolute;
+        border-radius: 50%;
+        background-color: rgba($color: #000000, $alpha: 0.4);
+        border: 1px solid white;
+        cursor: pointer;
+        color: white;
+        font-size: 5rem;
+        z-index: 2;
+        top: 50%;
+        transform: translateY(-50%);
+        &:hover {
+            background-color: rgba($color: #0c0c0c, $alpha: 0.6);
+        }
+    }
+    
+    .rightButton {
+        right: -30px;
+    }
+    .leftButton {
+        left: -30px;
+    }
+}
+
+.caroselWrapper {
+    overflow: hidden;
+    .caroselContent {
+        transition: transform 0.5s ease;
+        will-change: transform;
+    }
+}

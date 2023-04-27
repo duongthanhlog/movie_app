@@ -11,6 +11,7 @@
     @include dflex(row, null, center);
     font-size: 1.4rem;
 
+
     input {
         border: none;
         outline: none;
@@ -47,7 +48,8 @@
             top: calc(100% + 4px);
             left: 0;
             color: white;
-            z-index: 10;
+            z-index: 20;
+            border: 1px solid rgb(54, 54, 54);
         }
     }
     .searchButton {
@@ -67,6 +69,8 @@
         color: white;
         max-height: 80vh;
         overflow-y: scroll;
+        z-index: 10;
+        border: 1px solid rgb(54, 54, 54);
 
         &::-webkit-scrollbar {
             width: 8px;
@@ -87,12 +91,18 @@
             &:hover {
                 background-color: $popper-item-hover-color;
             }
-        }
-        img {
-            background-color: rgb(80, 80, 80);
-            @include size(48px, 72px);
-            background-position: center;
-            object-fit: cover;
+
+            .posterImg {
+                flex: 0;
+                img {
+                    background-color: rgb(80, 80, 80);
+                    @include size(48px, 72px);
+                    background-position: center;
+                    object-fit: cover;
+                }
+            }
+
+
         }
         .resultBody {
             margin-left: 16px;

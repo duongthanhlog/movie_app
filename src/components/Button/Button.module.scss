@@ -10,6 +10,8 @@
     @include dflex(row, center, center);
     @include radius(4px);
     cursor: pointer;
+    user-select: none;
+    
     &.primary {
         background-color: transparent;
         &:hover {

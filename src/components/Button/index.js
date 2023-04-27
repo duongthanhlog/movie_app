@@ -1,1 +1,0 @@
-export { dedault} from './Button'

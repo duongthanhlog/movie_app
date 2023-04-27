@@ -44,6 +44,9 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--primary-color);
 }
+img {
+  user-select: none;
+}
 
 // override bootstrap
 @media (min-width: 1200px) {

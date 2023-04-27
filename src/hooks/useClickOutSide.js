@@ -1,7 +1,8 @@
-const { useRef, useEffect } = require("react")
+import { useEffect, useRef } from "react"
 
 function useClickOutside(handler) {
     const domNode = useRef()
+    
     useEffect(() => {
         const handleHideWhenClickOutside = (e) => {
             if (!domNode?.current?.contains(e.target)) {
