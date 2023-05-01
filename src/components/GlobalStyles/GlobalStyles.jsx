@@ -1,4 +1,5 @@
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './GlobalStyles.scss'
 

@@ -9,14 +9,15 @@ import Button from "../../../components/Button/Button";
 import styles from "./Header.module.scss";
 import { Logo, LogoProIcon } from "../../../assests/Icons";
 import Search from "../Search/Search";
+import { Link, useLocation } from "react-router-dom";
 
 function Header() {
   return (
     <Container fluid className={clsx(styles.container)}>
       <Container fluid="xl" className={clsx(styles.header)}>
-        <div to='/'>
+        <Link to='/'>
           <Logo className={clsx(styles.logo)} />
-        </div>
+        </Link>
         
         <Button
           primary

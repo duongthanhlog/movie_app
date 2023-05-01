@@ -7,23 +7,23 @@
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    overflow: hidden;
 
-    .cardImgWrap {
-        height: 274px;    
-    }
-
-    img {
-        position: absolute;
-        @include size(100%, 100%);
+    .cardImgWrap, img {
+        height: 200px;    
+        width: 100%;
         object-fit: cover;
+        will-change: filter opacity;
+        background-color: #2c2c2c;
     }
+
     span {
         font-size: 1.6rem;
     }
 
     .cardBody {
         padding: 8px;
+        height: 100%;
     }
 
     .watchButton {
@@ -38,7 +38,7 @@
     }
     .cardName {
         font-size: 1.6rem;
-        margin:8px 0 30px 0;
+        margin:8px 0 20px 0;
         color: white;
         @include webkitLine(2);
         height: 48px;

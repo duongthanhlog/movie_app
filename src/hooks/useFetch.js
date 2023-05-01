@@ -1,4 +1,4 @@
-import request from "@/request/request"
+import request from "@/untils/httpRequest"
 import { useEffect, useState } from "react"
 
 function useFetch (url, params = {}) {

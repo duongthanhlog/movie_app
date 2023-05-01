@@ -61,7 +61,7 @@ function Carosel({ title, subTitle, cardsData = [], headingSection }) {
             >
               {cardsData.map((card) => {
                 return (
-                  <Col key={card.id} lg={2}>
+                  <Col key={card.id} xl={2}>
                     <MovieCard data={card} />
                   </Col>
                 );

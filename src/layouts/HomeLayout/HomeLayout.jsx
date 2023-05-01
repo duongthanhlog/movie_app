@@ -5,7 +5,7 @@ import styles from "./HomeLayout.module.scss"
 import Header from "../components/Header/Header";
 
 
-function DefaultLayout() {
+function HomeLayout() {
   return (
     <div className={clsx(styles.container)}>
       <Header/>
@@ -16,4 +16,4 @@ function DefaultLayout() {
   );
 }
 
-export default DefaultLayout;
+export default HomeLayout;

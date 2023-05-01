@@ -4,7 +4,7 @@ import Carosel from "@/components/Carosel/Carosel";
 import useFetch from "@/hooks/useFetch";
 
 function TopThisWeek() {
-    const { data, isLoading } = useFetch('movie/popular')
+    const { data, isLoading } = useFetch('/trending/movie/week')
 
     return ( 
         <div className={clsx(styles.container)}>

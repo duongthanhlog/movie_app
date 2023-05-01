@@ -1,3 +1,79 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
 .container {
+    width: 260px;
+}
+
+.filterPanel {
+    position: relative;
+    background-color: var(--secondary-color);
+    border-radius: 6px;
+    width: 100%;
+    border: 1px solid rgb(51, 51, 51);
     color: white;
+    margin-bottom: 16px;
+    cursor: pointer;
+    user-select: none;
+
+
+
+    .filterTitle {
+        user-select: none;
+        font-weight: 600;
+        font-size: 1.6rem;
+        padding: 10px 16px;
+        width: 100%;
+        @include dflex (row, space-between, center);
+    }
+
+    .filterBody {
+        padding: 20px 16px;
+        border-top: 1px solid rgb(51, 51, 51);
+        p {
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+        }
+    }
+
+    .select {
+        position: relative;
+        width: 100%;
+        border: none;
+        background-color: rgb(68, 68, 68);
+        font-size: 1.3rem;
+        width: 100%;
+        @include dflex(row, space-between, center);
+        color: white;
+
+        .optionsWrap {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            z-index: 10;
+            overflow-y: scroll;
+
+            .option {
+                text-align: left;
+                padding: 4px 8px;
+
+                &:hover {
+                    background-color: rgb(68, 68, 68);
+                }
+            }
+        }
+    }
+
+}
+
+.searchButton {
+    width: 100%;
+    background-color: var(--main-color);
+    font-size: 1.8rem;
+    color: white;
+    font-weight: 500;
+    padding: 8px 0;
+    border-radius: 50px;
 }

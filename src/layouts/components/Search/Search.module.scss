@@ -94,11 +94,12 @@
 
             .posterImg {
                 flex: 0;
+                @include size(48px, 72px);
+                background-position: center;
+                object-fit: cover;
+
                 img {
                     background-color: rgb(80, 80, 80);
-                    @include size(48px, 72px);
-                    background-position: center;
-                    object-fit: cover;
                 }
             }
 

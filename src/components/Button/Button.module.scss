@@ -6,7 +6,7 @@
     padding: 0 16px;
     border: none;
     outline: none;
-    height: 32px;
+    min-height: 32px;
     @include dflex(row, center, center);
     @include radius(4px);
     cursor: pointer;
@@ -17,6 +17,12 @@
         &:hover {
             background-color: $hover-button-primary-color;
         }
+    }
+
+    &.disabled {
+        cursor:auto;
+        opacity: 0.5;
+        background-color: gray;
     }
 
     .children {

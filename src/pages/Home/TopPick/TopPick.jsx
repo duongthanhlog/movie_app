@@ -4,7 +4,7 @@ import Carosel from "@/components/Carosel/Carosel";
 import useFetch from "@/hooks/useFetch";
 
 function TopPick() {
-    const {data, isLoading} = useFetch('movie/top_rated')
+    const {data, isLoading} = useFetch('/trending/movie/day')
 
     return ( 
         <div className={clsx(styles.container)}>

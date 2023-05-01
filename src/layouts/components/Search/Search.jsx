@@ -9,10 +9,9 @@ import { useEffect, useState } from "react";
 
 import useClickOutside from "../../../hooks/useClickOutSide";
 import Filter from "./Filter/Filter";
-import request from "@/request/request";
+import request, { fetchDataFromApi } from "@/untils/httpRequest";
 import Popper from "@/components/Popper/Popper";
-import LazyImage from "@/components/LazyImage/LazyImage";
-import useFetch from "@/hooks/useFetch";
+import LazyImage from "@/components/Image/Image";
 
 function Search() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -37,31 +36,38 @@ function Search() {
   });
 
 
+  const handleOpenFilter = () => {
+    setOpenFilter(!openFilter);
+  };
+
   useEffect(() => {
     if (searchValue.trim()) {
       setShowSearchResult(true);
     }
-    const fetchApi = async () => {
-      const params = {
-        api_key: import.meta.env.VITE_API_KEY,
-        query: searchValue,
-      };
-      try {
-        const {data} = await request.get(`search/${filterEndpoint}`, {params});
-        setSearchResult(data.results);
-        setOpenFilter(false);
-      } catch (e) {
-        console.log(e);
-      }
+
+    const params = {
+      api_key: import.meta.env.VITE_API_KEY,
+      query: searchValue,
     };
-    fetchApi();
+
+    fetchDataFromApi(`search/${filterEndpoint}`, params)
+    .then(data => {
+      setSearchResult(data.results);
+      setOpenFilter(false);
+    })
+    .catch(e => console.log(e))
+    // const fetchApi = async () => {
+     
+    //   try {
+    //     const {data} = await request.get(`search/${filterEndpoint}`, {params});
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // };
+    // fetchApi();
   }, [searchValue, filterEndpoint]);
 
 
-
-  const handleOpenFilter = () => {
-    setOpenFilter(!openFilter);
-  };
 
   const handleChangeFilter = (item) => {
     setFilterValue(item.label);
@@ -72,6 +78,7 @@ function Search() {
 
   return (
     <div ref={searchRef} className={clsx(styles.search)}>
+
       <div ref={filterButtonRef} className={clsx(styles.filterButton)}>
         <div className={clsx(styles.filterText)} onClick={handleOpenFilter}>
           <span>{filterValue}</span>

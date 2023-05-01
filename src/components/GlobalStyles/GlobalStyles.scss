@@ -8,8 +8,6 @@
     padding: 0;
 }
 
-// override default bootrap css
-
 li {
   list-style: none;
 }
@@ -43,9 +41,29 @@ h1,h2,h3,h4,h5,h6,p {
 body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--primary-color);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(51, 51, 51);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(51, 51, 51);
+    border-radius: 10px;
+  }
 }
+
 img {
   user-select: none;
+}
+
+a {
+  display: block;
 }
 
 // override bootstrap
