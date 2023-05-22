@@ -1,0 +1,50 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+
+.container {
+    padding: 16px 0;
+}
+.socials {
+    text-align: center;
+    color: white;
+    @include dflex(row, center);
+    margin: 16px 0;
+
+    .icon {
+        position: relative;
+        padding: 5px 10px;
+        border-radius: 50%;
+        font-size: 2.2rem;
+        cursor: pointer;
+        margin: 0 12px;
+      
+        &:hover {
+            background-color: rgb(19, 19, 19);
+        }
+    }
+}
+
+.ipcList {
+    @include dflex(row, center);
+    flex-wrap: wrap;
+    cursor: pointer;
+    margin: 12px auto;
+    width: 800px;
+
+    li {
+        padding: 8px;
+        font-size: 1.6rem;
+        color: white;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.copyRight {
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgb(153, 153, 153);
+    margin: 12px 0;
+}

@@ -28,6 +28,7 @@
         text-align: start;
         border-right: 1px solid rgb(202, 202, 202);
         
+
         .filterText {
             @include size(100%, 100%);
             display: flex;
@@ -68,7 +69,6 @@
         top: calc(100% + 6px);
         color: white;
         max-height: 80vh;
-        overflow-y: scroll;
         z-index: 10;
         border: 1px solid rgb(54, 54, 54);
 
@@ -88,13 +88,20 @@
             transition: all 0.2s ease;
             cursor: pointer;
 
+            &.active {
+                background-color: $popper-item-hover-color
+            }
+
             &:hover {
                 background-color: $popper-item-hover-color;
             }
 
+            .imageWrap {
+                @include size(48px, 72px);
+            }
             .posterImg {
                 flex: 0;
-                @include size(48px, 72px);
+                @include size(100%, 100%);
                 background-position: center;
                 object-fit: cover;
 

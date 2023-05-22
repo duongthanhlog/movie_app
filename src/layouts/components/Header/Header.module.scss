@@ -4,8 +4,7 @@
 .container {
     background-color: var( --secondary-color);
 }
-
-.header {
+.content {
     position: relative;
     height: $header-height;
     @include dflex(row, null, center);
@@ -34,12 +33,6 @@
     height: 36px;
 }
 
-.sperate {
-    @include size(2px, 58%);
-    top: 50%;
-    background-color: #424242;
-    margin: 0 8px;
-}
 
 
 

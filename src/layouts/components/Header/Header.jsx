@@ -7,54 +7,57 @@ import { GoThreeBars } from "react-icons/go";
 
 import Button from "../../../components/Button/Button";
 import styles from "./Header.module.scss";
-import { Logo, LogoProIcon } from "../../../assests/Icons";
 import Search from "../Search/Search";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Logo } from "@/assests/Icons";
+import { ModalContext } from "@/context/Context";
+import { memo } from "react";
+import ContentWrapper from "@/components/ContentWrapper/ContentWrapper";
 
 function Header() {
+  const { toggleModal } = useContext(ModalContext);
+
   return (
-    <Container fluid className={clsx(styles.container)}>
-      <Container fluid="xl" className={clsx(styles.header)}>
-        <Link to='/'>
-          <Logo className={clsx(styles.logo)} />
-        </Link>
-        
-        <Button
-          primary
-          leftIcon={<GoThreeBars className={clsx(styles.menuIcon)} />}
-          className={clsx(styles.menuButton)}
-        >
-          Menu
-        </Button>
+    <header className={clsx(styles.container)}>
+      <ContentWrapper>
+        <div className={clsx(styles.content)}>
+          <Link to="/">
+            <Logo className={clsx(styles.logo)} />
+          </Link>
 
-        <Search />
+          <Button
+            primary
+            leftIcon={<GoThreeBars className={clsx(styles.menuIcon)} />}
+            className={clsx(styles.menuButton)}
+            onClick={toggleModal}
+          >
+            Menu
+          </Button>
 
-        <Button primary className={clsx(styles.proLogo)}>
-          <LogoProIcon />
-        </Button>
+          <Search />
 
-        <div className={clsx(styles.sperate)}></div>
-
-        <Button
-          primary
-          leftIcon={<BsFillBookmarkPlusFill size="1.6rem" />}
-          className={clsx(styles.watchList)}
-        >
-          Watch list
-        </Button>
-        <Button primary className={clsx(styles.signIn)}>
-          Sign in
-        </Button>
-        <Button
-          primary
-          rightIcon={<AiFillCaretDown size="1rem" />}
-          className={clsx(styles.languages)}
-        >
-          EN
-        </Button>
-      </Container>
-    </Container>
+          <Button
+            primary
+            leftIcon={<BsFillBookmarkPlusFill size="1.6rem" />}
+            className={clsx(styles.watchList)}
+          >
+            Watch list
+          </Button>
+          <Button primary className={clsx(styles.signIn)}>
+            Sign in
+          </Button>
+          <Button
+            primary
+            rightIcon={<AiFillCaretDown size="1rem" />}
+            className={clsx(styles.languages)}
+          >
+            EN
+          </Button>
+        </div>
+      </ContentWrapper>
+    </header>
   );
 }
 
-export default Header;
+export default memo(Header);

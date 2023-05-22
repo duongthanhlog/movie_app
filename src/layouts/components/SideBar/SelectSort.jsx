@@ -1,11 +1,14 @@
 import styles from "./SideBar.module.scss";
 import { v4 as uuidv4 } from "uuid";
-import Popper from "@/components/Popper/Popper";
-import { AiOutlineCaretDown } from "react-icons/ai";
 import { useState } from "react";
-import useClickOutside from "@/hooks/useClickOutSide";
 import clsx from "clsx";
+import { AiOutlineCaretDown } from "react-icons/ai";
+
+import Popper from "@/components/Popper/Popper";
+import useClickOutside from "@/hooks/useClickOutSide";
 import Button from "@/components/Button/Button";
+import { memo } from "react";
+
 
 const sortByData = [
   { value: "popularity.desc", label: "Popularity Descending" },
@@ -34,10 +37,10 @@ function SelectSort({ onchangeSort, label }) {
       rightIcon={<AiOutlineCaretDown />}
       ref={selectSortRef}
     >
-      <span className={clsx(styles.selectTitle)}>{label}</span>
+      <div className={clsx(styles.selectTitle)}>{label}</div>
       {open && (
-        <Popper  className={clsx(styles.optionsWrap)}>
-          {sortByData.map((item) => (
+        <Popper className={clsx(styles.optionsWrap)}>
+          {sortByData.map(item => (
             <div
               onClick={() => onchangeSort(item)}
               className={clsx(styles.option)}
@@ -53,4 +56,4 @@ function SelectSort({ onchangeSort, label }) {
   );
 }
 
-export default SelectSort;
+export default memo(SelectSort);

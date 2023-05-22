@@ -2,7 +2,7 @@
 @import 'src/scss/mixin';
 
 .container {
-    width: 260px;
+    // width:280px;
 }
 
 .filterPanel {
@@ -58,7 +58,9 @@
             .option {
                 text-align: left;
                 padding: 4px 8px;
-
+                &.active {
+                    background-color: rgb(68, 68, 68);
+                }
                 &:hover {
                     background-color: rgb(68, 68, 68);
                 }
@@ -76,4 +78,8 @@
     font-weight: 500;
     padding: 8px 0;
     border-radius: 50px;
+}
+
+.selectOptions {
+    width: 200px;
 }

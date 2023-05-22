@@ -7,15 +7,17 @@ import GlobalStyles from "./components/GlobalStyles/GlobalStyles";
 import router from "./router/router";
 import store from "./store/store";
 import { ThemeProvider } from "react-bootstrap";
+import ContextProvider from "./context/Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <Provider store={store}>
     <GlobalStyles>
-      <ThemeProvider
-        breakpoints={["xl", "md", "sm", "xs"]}
-      >
-        <RouterProvider router={router} />
+      <ThemeProvider breakpoints={["xl", "md", "sm", "xs"]}>
+        <ContextProvider>
+          <RouterProvider router={router}/>
+        </ContextProvider>
       </ThemeProvider>
     </GlobalStyles>
   </Provider>

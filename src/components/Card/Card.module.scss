@@ -1,0 +1,76 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+.cardItem{
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 402px;
+    border: 1px solid rgb(44, 44, 44);
+    @include radius(4px);
+    
+    .imgLink {
+        background-color: rgb(37, 37, 37);
+        display: flex;
+        align-items: center;
+        height: 248px;
+        @include radius(4px, 4px, 0, 0);
+    }
+
+    .cardImgWrap, img {
+        object-fit: cover;
+        @include size(100%);
+        @include radius(4px, 4px, 0, 0);
+        background-color: #2c2c2c;
+    }
+
+    span {
+        font-size: 1.6rem;
+    }
+
+    .cardBody {
+        padding: 8px;
+        background-color: $card-background;
+        @include dflex(column, flex-end);
+        @include radius(0, 0, 4px, 4px);
+
+        h5 {
+            color: gray;
+            font-size: 1.5rem;
+        }
+    }
+
+    .watchButton {
+        width: 100%;
+        background-color:#2c2c2c ;
+        color: #5799ef;
+        font-size: 1.3rem;
+        font-weight: 600;
+        &:hover {
+            background-color: #30353c;
+        }
+    }
+    .cardName {
+            font-size: 1.6rem;
+            margin:8px 0 14px 0;
+            color: white;
+            @include webkitLine(3);
+            min-height: 7.2rem;
+
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .trailerButton {
+        color: white;
+        margin: 10px auto 0 auto;
+        @include size(100px, 40px);
+        font-size: 1.4rem;
+        font-weight: 600;
+        padding:0 20px;
+    }
+}

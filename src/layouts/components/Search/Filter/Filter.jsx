@@ -1,13 +1,16 @@
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
+import { v4 as uuidv4 } from 'uuid';
 
 import Button from "@/components/Button/Button";
 import Popper from "@/components/Popper/Popper";
 import styles from "./Filter.module.scss";
 import { listFilter } from "./contants";
+import { memo } from "react";
 
 function Filter({ className, onChangeFilter, value, show }) {
   const classes = clsx(styles.popper, className);
+
   return (
     <AnimatePresence>
       {show && (
@@ -25,7 +28,7 @@ function Filter({ className, onChangeFilter, value, show }) {
                     className={clsx(styles.filterItem)}
                     leftIcon={item.leftIcon}
                     rightIcon={item.rightIcon}
-                    key={item.id}
+                    key={uuidv4()}
                   >
                     {item.label}
                   </Button>
@@ -37,7 +40,7 @@ function Filter({ className, onChangeFilter, value, show }) {
                     [styles.active]: value === item.label,
                   })}
                   leftIcon={item.icon}
-                  key={item.id}
+                  key={uuidv4()}
                   onClick={() => onChangeFilter(item)}
                 >
                   {item.label}
@@ -51,4 +54,4 @@ function Filter({ className, onChangeFilter, value, show }) {
   );
 }
 
-export default Filter;
+export default memo(Filter);

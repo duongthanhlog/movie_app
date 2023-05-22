@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { BiChevronRight, BiChevronDown } from "react-icons/bi";
-import { useEffect, useState } from "react";
+import { useState, memo } from "react";
 import { useDispatch } from "react-redux";
 
-import { changeSortValue } from "@/store/sortSlice";
+import { changeSortValue } from "@/store/Slices/sortSlice";
 import styles from "./SideBar.module.scss";
 import Button from "@/components/Button/Button";
 import SelectSort from "./SelectSort";
@@ -11,7 +11,7 @@ import SelectSort from "./SelectSort";
 function SideBar() {
   const [enableSort, setEnableSort] = useState(false);
   const [sortLabel, setSortLabel] = useState("Popularity Descending");
-  const [sortValue, setSortValue] = useState('popularity.desc');
+  const [sortValue, setSortValue] = useState("popularity.desc");
   const [sortHistory, setSortHistory] = useState([sortValue]);
 
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ function SideBar() {
     filter: false,
   });
 
-
   const toggleSortButton = () => {
     setOpen((prev) => ({ ...prev, sort: !open.sort }));
   };
@@ -30,10 +29,9 @@ function SideBar() {
     setOpen((prev) => ({ ...prev, filter: !open.filter }));
   };
 
-
   const handleChangeSort = (item) => {
-    const sortedValue = sortHistory.includes(item.value)
-    if(sortedValue){
+    const sortedValue = sortHistory.includes(item.value);
+    if (sortedValue) {
       setEnableSort(false);
     } else {
       setSortValue(item.value);
@@ -88,4 +86,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default memo(SideBar);

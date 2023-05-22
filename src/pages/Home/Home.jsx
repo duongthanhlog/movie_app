@@ -1,15 +1,14 @@
 import clsx from "clsx";
 import Banner from "./Banner/Banner";
 import styles from "./Home.module.scss";
-import TopPick from "./TopPick/TopPick";
-import TopThisWeek from "./TopThisWeek/TopThisWeek";
+import Carosel from "@/components/Carosel/Carosel";
 
 function Home() {
   return (
     <div className={clsx(styles.container)}>
       <Banner />
-      <TopPick/>
-      <TopThisWeek/>
+      <Carosel title='Top pick' subTitle='TV shows and movies just for you' endPoint='day'/>
+      <Carosel title='Top 10 on IMDb this week'  endPoint='week'/>
     </div>
   );
 }

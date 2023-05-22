@@ -1,17 +1,18 @@
 @mixin dflex($direction : null, $content: null, $items: null) {
     display: flex;
+    flex-direction: $direction;
     align-items: $items;
     justify-content: $content;
 }
 
-@mixin radius($topLeft, $topRight : $topLeft, $bottomLeft: $topLeft, $bottomRight: $topLeft) {
+@mixin radius($topLeft, $topRight : $topLeft, $bottomRight: $topLeft, $bottomLeft: $topLeft) {
     border-top-left-radius: $topLeft;
     border-top-right-radius: $topRight;
     border-bottom-left-radius: $bottomLeft;
     border-bottom-right-radius: $bottomRight;
 }
 
-@mixin after($top, $left : null, $bottom: null, $right : null) {
+@mixin after($top, $right : null, $bottom: null, $left : null) {
     position: absolute;
     content : '';
     display: block;

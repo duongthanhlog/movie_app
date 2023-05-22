@@ -1,0 +1,32 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
+.cardList {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    position: relative;
+    .loadMoreBox {
+        position: absolute;
+        @include size(100px, 400px);
+        background-color: red;
+        bottom: 0;
+    }
+}
+
+.loadMoreBtn {
+    width: 100%;
+    background-color: var(--main-color);
+    font-size: 2rem;
+    color: white;
+    margin-top: 16px;
+    padding: 10px;
+    font-weight: 700;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    &:hover {
+        filter: brightness(80%);
+    }
+}
+

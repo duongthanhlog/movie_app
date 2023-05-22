@@ -1,31 +1,34 @@
-import styles from "./Search.module.scss";
 import clsx from "clsx";
 import {
   AiOutlineSearch,
   AiFillCaretDown,
   AiFillCaretUp,
 } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
-import useClickOutside from "../../../hooks/useClickOutSide";
-import Filter from "./Filter/Filter";
-import request, { fetchDataFromApi } from "@/untils/httpRequest";
+import useClickOutside from "@/hooks/useClickOutSide";
+import styles from "./Search.module.scss";
 import Popper from "@/components/Popper/Popper";
-import LazyImage from "@/components/Image/Image";
+import Filter from "./Filter/Filter";
+import { filterMovies } from "@/store/Slices/searchSlice";
+import usePressKey from "@/hooks/usePressKey";
+import { selectSearchResult } from "@/store/selectors";
+import { useCallback } from "react";
 
 function Search() {
+  const dispatch = useDispatch();
+
+  const { result : searchResult } = useSelector(selectSearchResult)
+  
   const [openFilter, setOpenFilter] = useState(false);
   const [filterValue, setFilterValue] = useState("All");
-  const [filterEndpoint, setFilterEndpoint] = useState("multi");
-
-  const [searchValue, setSearchValue] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const [filterSlug, setFilterSlug] = useState('multi');
+  const [searchValue, setSearchValue] = useState('');
   const [showSearchResult, setShowSearchResult] = useState(false);
 
-  
-  const handleChange = (e) => {
-    setSearchValue(e.target.value);
-  };
+  const [activeIndex, onKeyDown] = usePressKey(searchResult);
 
   const filterButtonRef = useClickOutside(() => {
     setOpenFilter(false);
@@ -35,50 +38,33 @@ function Search() {
     setShowSearchResult(false);
   });
 
+  useEffect(() => {
+    handleFilterMovie()
+  }, [filterSlug, searchValue, dispatch])
+
+  const handleFilterMovie = () => {
+    if (searchValue.trim()) {
+      setShowSearchResult(true);
+    }
+    dispatch(filterMovies({filterSlug, searchValue }))
+    setOpenFilter(false);
+  }
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   const handleOpenFilter = () => {
     setOpenFilter(!openFilter);
   };
 
-  useEffect(() => {
-    if (searchValue.trim()) {
-      setShowSearchResult(true);
-    }
-
-    const params = {
-      api_key: import.meta.env.VITE_API_KEY,
-      query: searchValue,
-    };
-
-    fetchDataFromApi(`search/${filterEndpoint}`, params)
-    .then(data => {
-      setSearchResult(data.results);
-      setOpenFilter(false);
-    })
-    .catch(e => console.log(e))
-    // const fetchApi = async () => {
-     
-    //   try {
-    //     const {data} = await request.get(`search/${filterEndpoint}`, {params});
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // };
-    // fetchApi();
-  }, [searchValue, filterEndpoint]);
-
-
-
-  const handleChangeFilter = (item) => {
+  const handleChangeFilter = useCallback((item) => {
     setFilterValue(item.label);
-    setFilterEndpoint(item.filterEndpoint);
-  };
-
-
+    setFilterSlug(item.filterSlug);
+  }, [filterValue])
 
   return (
     <div ref={searchRef} className={clsx(styles.search)}>
-
       <div ref={filterButtonRef} className={clsx(styles.filterButton)}>
         <div className={clsx(styles.filterText)} onClick={handleOpenFilter}>
           <span>{filterValue}</span>
@@ -94,11 +80,12 @@ function Search() {
       </div>
 
       <input
+        type="text"
+        placeholder="Enter keywords..."
         value={searchValue}
         onChange={handleChange}
+        onKeyDown={onKeyDown}
         onFocus={() => setShowSearchResult(true)}
-        placeholder="Enter keywords..."
-        type="text"
       />
 
       <div className={clsx(styles.searchButton)}>
@@ -107,22 +94,12 @@ function Search() {
 
       {showSearchResult && searchResult.length > 0 && (
         <Popper className={clsx(styles.searchResultWrapper)}>
-          {searchResult.map((item) => {
-            let year;
-            if (item.firstAirDate) {
-              year = item.firstAirDate.split("-")[0];
-            }
+          {searchResult.map((item, index) => {
             return (
-              <div key={item.id} className={clsx(styles.resultItem)}>
-                  <LazyImage
-                    className={styles.posterImg}
-                    src={`${import.meta.env.VITE_IMAGE_BASE_URL}${item.backdropPath}`}
-                  />
-                <div className={clsx(styles.resultBody)}>
-                  <h4>{item.name || item.title}</h4>
-                  <p>{year}</p>
-                  <p>{item.originalName}</p>
-                </div>
+              <div key={uuidv4()} className={clsx(styles.resultItem, {
+                [styles.active] : activeIndex === index
+              })}>
+                <h4>{item.name || item.title}</h4>
               </div>
             );
           })}
@@ -132,4 +109,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default memo(Search);
