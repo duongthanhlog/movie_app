@@ -1,17 +1,12 @@
 import {
-  Route,
   createBrowserRouter,
-  createRoutesFromElements,
 } from "react-router-dom";
 
 import HeaderOnly from "../layouts/HeaderOnly/HeaderOnly";
 import Home from "@/pages/Home/Home";
 import MainLayout from "@/layouts/MainLayout/MainLayout";
 import App from "@/App";
-import Discover from "@/pages/Discover/Discover";
-import discoverLoader from "./discoverLoader";
-import movieLoader from "./movieLoader";
-import tvLoader from "./tvLoader";
+import Explore from "@/pages/Explore/Explore";
 import Details from "@/pages/Details/Details";
 
 // const router = createBrowserRouter(
@@ -47,7 +42,7 @@ const router = createBrowserRouter([
             element: <Home />,
           },
           {
-            path : ':mediaType/:id/:name',
+            path : ':mediaType/:id/',
             element : <Details/>
           },
         ],
@@ -58,7 +53,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ':mediaType',
-            element: <Discover/>,
+            element: <Explore/>,
           },
         ],
       },

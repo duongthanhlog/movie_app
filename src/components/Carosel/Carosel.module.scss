@@ -36,29 +36,29 @@
 .carosel {
     position: relative;
     margin-top: 20px;
+}
 
-    .rightButton, .leftButton {
-        position: absolute;
-        border-radius: 50%;
-        background-color: rgba($color: #000000, $alpha: 0.4);
-        border: 1px solid white;
-        cursor: pointer;
-        color: white;
-        font-size: 5rem;
-        z-index: 2;
-        top: 50%;
-        transform: translateY(-50%);
-        &:hover {
-            background-color: rgba($color: #0c0c0c, $alpha: 0.6);
-        }
+.rightButton, .leftButton {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    border: 1px solid white;
+    cursor: pointer;
+    color: white;
+    font-size: 5rem;
+    z-index: 2;
+    top: 50%;
+    transform: translateY(-50%);
+    &:hover {
+        background-color: rgba($color: #0c0c0c, $alpha: 0.6);
     }
-    
-    .rightButton {
-        right: -30px;
-    }
-    .leftButton {
-        left: -30px;
-    }
+}
+
+.rightButton {
+    right: -30px;
+}
+.leftButton {
+    left: -30px;
 }
 
 .slideWrap {

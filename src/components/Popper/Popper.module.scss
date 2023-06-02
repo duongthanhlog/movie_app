@@ -4,5 +4,6 @@
 .popper {
     background-color: $popper-color;
     padding: 6px 0;
-    @include radius(4px)
+    @include radius(4px);
+    border :1px solid rgb(54, 54, 54);
 }

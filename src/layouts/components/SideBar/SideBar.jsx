@@ -1,25 +1,42 @@
 import clsx from "clsx";
 import { BiChevronRight, BiChevronDown } from "react-icons/bi";
-import { useState, memo } from "react";
-import { useDispatch } from "react-redux";
+import { useState, memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { changeSortValue } from "@/store/Slices/sortSlice";
 import styles from "./SideBar.module.scss";
 import Button from "@/components/Button/Button";
-import SelectSort from "./SelectSort";
+import Sort from "./Sort";
+
+import { changeSortValue } from "@/store/Slices/sortSlice";
+import { fetchGenres } from "@/store/Slices/homeSlice";
+import { selectGenre } from "@/store/selectors";
+import { getGenreIds } from "@/store/Slices/filterGenresSlice";
 
 function SideBar() {
-  const [enableSort, setEnableSort] = useState(false);
+  const [enableSearch, setEnableSearch] = useState(false);
   const [sortLabel, setSortLabel] = useState("Popularity Descending");
   const [sortValue, setSortValue] = useState("popularity.desc");
   const [sortHistory, setSortHistory] = useState([sortValue]);
+  const [genreIds, setGenreIds] = useState([])
 
   const dispatch = useDispatch();
+  const { mediaType } = useParams();
 
   const [open, setOpen] = useState({
     sort: false,
     filter: false,
   });
+
+  const { genres } = useSelector(selectGenre);
+
+  useEffect(() => {
+    dispatch(fetchGenres(mediaType));
+  }, [mediaType]);
+
+  useEffect(() => {
+    dispatch(getGenreIds(genreIds))
+  }, [genreIds])
 
   const toggleSortButton = () => {
     setOpen((prev) => ({ ...prev, sort: !open.sort }));
@@ -32,19 +49,34 @@ function SideBar() {
   const handleChangeSort = (item) => {
     const sortedValue = sortHistory.includes(item.value);
     if (sortedValue) {
-      setEnableSort(false);
+      setEnableSearch(false);
     } else {
       setSortValue(item.value);
       setSortLabel(item.label);
-      setEnableSort(true);
+      setEnableSearch(true);
     }
   };
 
-  const handleSortMovie = () => {
+  
+  const handleChangeFilter = (id) => {
+    setGenreIds(prev => {
+      if(prev.includes(id)) {
+        return prev.filter(item => item !== id)
+      }
+      else {
+        return [...prev, id]
+      }
+    })
+    setEnableSearch(true);
+  }
+
+
+  const handleFilterMovie = () => {
     dispatch(changeSortValue(sortValue));
     setSortHistory(sortValue);
-    setEnableSort(false);
+    setEnableSearch(false);
   };
+
 
   return (
     <div className={clsx(styles.container)}>
@@ -60,13 +92,13 @@ function SideBar() {
         {open.sort && (
           <div className={clsx(styles.filterBody)}>
             <p>Sort Results By</p>
-            <SelectSort onchangeSort={handleChangeSort} label={sortLabel} />
+            <Sort onchangeSort={handleChangeSort} label={sortLabel} />
           </div>
         )}
       </div>
 
-      <div className={clsx(styles.filterPanel)} onClick={toggleFilterButton}>
-        <div className={clsx(styles.filterTitle)}>
+      <div className={clsx(styles.filterPanel)}>
+        <div className={clsx(styles.filterTitle)} onClick={toggleFilterButton}>
           Filters
           {open.filter ? (
             <BiChevronDown size="2.4rem" />
@@ -74,10 +106,26 @@ function SideBar() {
             <BiChevronRight size="2.4rem" />
           )}
         </div>
+        {open.filter && (
+          <div className={clsx(styles.filterBody)}>
+            <p>Genres</p>
+            <ul>
+              {genres?.map((genre) => {
+                return (
+                  <li onClick={() => handleChangeFilter(genre.id)} className={clsx(styles.tag, {
+                    [styles.active] : genreIds.includes(genre.id)
+                  })} key={genre.id}>
+                      {genre.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </div>
       <Button
-        disabled={!enableSort}
-        onClick={handleSortMovie}
+        disabled={!enableSearch}
+        onClick={handleFilterMovie}
         className={clsx(styles.searchButton)}
       >
         Search

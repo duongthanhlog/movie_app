@@ -4,7 +4,7 @@ import {
   AiFillCaretDown,
   AiFillCaretUp,
 } from "react-icons/ai";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useMemo, useState, useTransition } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -12,23 +12,31 @@ import useClickOutside from "@/hooks/useClickOutSide";
 import styles from "./Search.module.scss";
 import Popper from "@/components/Popper/Popper";
 import Filter from "./Filter/Filter";
-import { filterMovies } from "@/store/Slices/searchSlice";
+import { resetResult, searchMovies } from "@/store/Slices/searchSlice";
 import usePressKey from "@/hooks/usePressKey";
 import { selectSearchResult } from "@/store/selectors";
 import { useCallback } from "react";
+import useDebounce from "@/hooks/useDebounce";
+import Spinners from "./Spinner";
 
 function Search() {
   const dispatch = useDispatch();
 
-  const { result : searchResult } = useSelector(selectSearchResult)
-  
+  const {
+    result: searchResult,
+    loading,
+    noResult,
+  } = useSelector(selectSearchResult);
+
   const [openFilter, setOpenFilter] = useState(false);
   const [filterValue, setFilterValue] = useState("All");
-  const [filterSlug, setFilterSlug] = useState('multi');
-  const [searchValue, setSearchValue] = useState('');
+  const [filterSlug, setFilterSlug] = useState("multi");
+  const [searchValue, setSearchValue] = useState("");
   const [showSearchResult, setShowSearchResult] = useState(false);
 
   const [activeIndex, onKeyDown] = usePressKey(searchResult);
+  const debounceValue = useDebounce(searchValue, 500);
+
 
   const filterButtonRef = useClickOutside(() => {
     setOpenFilter(false);
@@ -38,30 +46,45 @@ function Search() {
     setShowSearchResult(false);
   });
 
-  useEffect(() => {
-    handleFilterMovie()
-  }, [filterSlug, searchValue, dispatch])
-
-  const handleFilterMovie = () => {
-    if (searchValue.trim()) {
-      setShowSearchResult(true);
-    }
-    dispatch(filterMovies({filterSlug, searchValue }))
-    setOpenFilter(false);
-  }
-
-  const handleChange = (e) => {
-    setSearchValue(e.target.value);
-  };
-
   const handleOpenFilter = () => {
     setOpenFilter(!openFilter);
   };
 
-  const handleChangeFilter = useCallback((item) => {
-    setFilterValue(item.label);
-    setFilterSlug(item.filterSlug);
-  }, [filterValue])
+  useEffect(() => {
+    handleSearch();
+  }, [filterSlug, debounceValue]);
+  
+
+  const handleSearch = () => {
+    if (!debounceValue.trim()) {
+      setShowSearchResult(false);
+      dispatch(resetResult());
+      return;
+    }
+    dispatch(searchMovies({ filterSlug, debounceValue }));
+    setShowSearchResult(true);
+  };
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value)
+  };
+
+  const handleFocus = () => {
+    if(debounceValue.trim()) {
+      setShowSearchResult(true);
+    }
+  };
+
+  const handleChangeFilter = useCallback(
+    (item) => {
+      setFilterValue(item.label);
+      setFilterSlug(item.filterSlug);
+      setOpenFilter(false)
+    },
+    [filterValue]
+  );
+
+
 
   return (
     <div ref={searchRef} className={clsx(styles.search)}>
@@ -85,24 +108,33 @@ function Search() {
         value={searchValue}
         onChange={handleChange}
         onKeyDown={onKeyDown}
-        onFocus={() => setShowSearchResult(true)}
+        onFocus={handleFocus}
       />
 
       <div className={clsx(styles.searchButton)}>
         <AiOutlineSearch size="2rem" />
       </div>
 
-      {showSearchResult && searchResult.length > 0 && (
+      {showSearchResult && (
         <Popper className={clsx(styles.searchResultWrapper)}>
-          {searchResult.map((item, index) => {
-            return (
-              <div key={uuidv4()} className={clsx(styles.resultItem, {
-                [styles.active] : activeIndex === index
-              })}>
-                <h4>{item.name || item.title}</h4>
-              </div>
-            );
-          })}
+          {loading && <Spinners/>}
+          {searchResult.length > 0 &&
+            !loading &&
+            searchResult?.map((item, index) => {
+              return (
+                <div
+                  key={item.id}
+                  className={clsx(styles.resultItem, {
+                    [styles.active]: activeIndex === index,
+                  })}
+                >
+                  <h4>{item.name || item.title}</h4>
+                </div>
+              );
+            })}
+          {noResult && !loading && debounceValue && (
+            <div className={clsx(styles.footer)}>NO RESULTS</div>
+          )}
         </Popper>
       )}
     </div>

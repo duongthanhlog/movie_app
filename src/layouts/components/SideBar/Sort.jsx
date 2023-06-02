@@ -23,7 +23,7 @@ const sortByData = [
   { value: "original_title.asc", label: "Title (A-Z)" },
   { value: "original_title.desc", label: "Title (Z-A)" },
 ];
-function SelectSort({ onchangeSort, label }) {
+function Sort({ onchangeSort, label }) {
   const [open, setOpen] = useState(false)
 
   const selectSortRef = useClickOutside(() => {
@@ -56,4 +56,4 @@ function SelectSort({ onchangeSort, label }) {
   );
 }
 
-export default memo(SelectSort);
+export default memo(Sort);

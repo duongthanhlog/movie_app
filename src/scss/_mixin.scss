@@ -23,6 +23,17 @@
     @content;
 }
 
+@mixin before($top, $right : null, $bottom: null, $left : null) {
+    position: absolute;
+    content : '';
+    display: block;
+    top: $top;
+    left: $left;
+    bottom: $bottom;
+    right: $right;
+    @content;
+}
+
 @mixin size($width, $height : $width) {
     width: $width;
     height: $height;
