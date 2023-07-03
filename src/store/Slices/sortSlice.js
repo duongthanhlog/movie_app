@@ -4,14 +4,18 @@ const sortSlice = createSlice({
     name : 'sort',
     initialState : {
         value : 'popularity.desc',
+        genres : [],
         data : []
     },
     reducers : {
         changeSortValue : (state, action) => {
             state.value = action.payload
         },
+        changeGenres : (state, action) => {
+            state.genres = action.payload
+        }
     },
 })
 
-export const { changeSortValue }  = sortSlice.actions
+export const { changeSortValue, changeGenres }  = sortSlice.actions
 export default sortSlice.reducer

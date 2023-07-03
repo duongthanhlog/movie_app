@@ -4,7 +4,6 @@ import clsx from "clsx";
 
 import styles from "./MainLayout.module.scss";
 import Header from "../components/Header/Header";
-import SideBar from "../components/SideBar/SideBar";
 import Footer from "../components/Footer/Footer";
 import ContentWrapper from "@/components/ContentWrapper/ContentWrapper";
 
@@ -29,7 +28,6 @@ function MainLayout() {
         <div className={clsx(styles.content)}>
           <h1 className={clsx(styles.title)}>{title}</h1>
           <div className={clsx(styles.div)}>
-              <SideBar />
               <Outlet />
           </div>
         </div>

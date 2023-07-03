@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 import styles from "./SideBar.module.scss";
 import Button from "@/components/Button/Button";
-import Sort from "./Sort";
+import Sort from "../../../pages/Explore/Sort";
 
 import { changeSortValue } from "@/store/Slices/sortSlice";
 import { fetchGenres } from "@/store/Slices/homeSlice";
@@ -80,7 +80,7 @@ function SideBar() {
 
   return (
     <div className={clsx(styles.container)}>
-      <div className={clsx(styles.filterPanel)}>
+      {/* <div className={clsx(styles.filterPanel)}>
         <div onClick={toggleSortButton} className={clsx(styles.filterTitle)}>
           Sort{" "}
           {open.sort ? (
@@ -93,23 +93,8 @@ function SideBar() {
           <div className={clsx(styles.filterBody)}>
             <p>Sort Results By</p>
             <Sort onchangeSort={handleChangeSort} label={sortLabel} />
-          </div>
-        )}
-      </div>
-
-      <div className={clsx(styles.filterPanel)}>
-        <div className={clsx(styles.filterTitle)} onClick={toggleFilterButton}>
-          Filters
-          {open.filter ? (
-            <BiChevronDown size="2.4rem" />
-          ) : (
-            <BiChevronRight size="2.4rem" />
-          )}
-        </div>
-        {open.filter && (
-          <div className={clsx(styles.filterBody)}>
             <p>Genres</p>
-            <ul>
+            <ul className={clsx(styles.genreList)}>
               {genres?.map((genre) => {
                 return (
                   <li onClick={() => handleChangeFilter(genre.id)} className={clsx(styles.tag, {
@@ -123,13 +108,14 @@ function SideBar() {
           </div>
         )}
       </div>
+
       <Button
         disabled={!enableSearch}
         onClick={handleFilterMovie}
         className={clsx(styles.searchButton)}
       >
         Search
-      </Button>
+      </Button> */}
     </div>
   );
 }

@@ -30,6 +30,7 @@ function Carosel({ title, subTitle, headingSection, endPoint, itemCount }) {
       <div className={clsx(styles.carosel)}>
         <Slider {...settings} className={clsx(styles.slideWrap)}>
           {data?.results?.map((card) => {
+            console.log(card);
             return (
               <Card key={card.id} data={card} className={clsx(styles.card)} />
             );

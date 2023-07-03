@@ -11,7 +11,7 @@
     border-radius: 6px;
     width: 100%;
     border: 1px solid rgb(51, 51, 51);
-    color: white;
+    color:white;
     margin-bottom: 16px;
     cursor: pointer;
     user-select: none;
@@ -28,11 +28,16 @@
     }
 
     .filterBody {
-        padding: 20px 16px;
+        padding:0 16px 16px 16px;
         border-top: 1px solid rgb(51, 51, 51);
+
         p {
-            margin-bottom: 10px;
             font-size: 1.6rem;
+            margin-top: 10px;
+        }
+
+        .genreList {
+            gap: 10px;
         }
 
         .tag {
@@ -40,13 +45,14 @@
             border-radius: 14px;
             padding: 4px 12px;
             font-size: 1.3rem;
+            display: flex;
             display: inline-block;
-            margin-top: 8px;
-            margin-right: 6px;
+            margin-top: 10px;
+            margin-right: 10px;
 
             &.active {
                 background-color: var(--main-color);
-                color: white;
+                color:white;
             }
         }
     }
@@ -59,7 +65,8 @@
         font-size: 1.3rem;
         width: 100%;
         @include dflex(row, space-between, center);
-        color: white;
+        color:white;
+        margin-top: 10px;
 
         .optionsWrap {
             position: absolute;
@@ -89,7 +96,7 @@
     width: 100%;
     background-color: var(--main-color);
     font-size: 1.8rem;
-    color: white;
+    color:white;
     font-weight: 500;
     padding: 8px 0;
     border-radius: 50px;

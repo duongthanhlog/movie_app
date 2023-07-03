@@ -2,7 +2,7 @@
 @import 'src/scss/mixin';
 
 .cardItem{
-    color: white;
+    color:white;
     border-radius: 4px;
     overflow: hidden;
     border: 1px solid rgb(44, 44, 44);
@@ -13,8 +13,8 @@
         background-color: rgb(37, 37, 37);
         display: flex;
         align-items: center;
-        height: 248px;
         @include radius(4px, 4px, 0, 0);
+        @include size(144px, 216px);
     }
 
     .cardImgWrap, img {
@@ -30,6 +30,10 @@
         background-color: $card-background;
         @include dflex(column, flex-end);
         @include radius(0, 0, 4px, 4px);
+
+        &:hover {
+            color: unset;
+        }
 
         h5 {
             color: gray;
@@ -53,7 +57,7 @@
     }
     .cardName {
             font-size: 1.5rem;
-            color: white;
+            color:white;
             @include webkitLine(3);
             min-height: 7.2rem;
 
@@ -64,7 +68,7 @@
     }
 
     .trailerButton {
-        color: white;
+        color:white;
         margin: 10px auto 0 auto;
         @include size(100px, 40px);
         font-size: 1.4rem;

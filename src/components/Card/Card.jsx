@@ -17,13 +17,13 @@ function Card({ data, className }) {
 
   return (
     <div className={clsx(styles.cardItem, className)}>
-      <Link to={`/${data.mediaType || mediaType}/${data.id}`} state={data} className={clsx(styles.imgLink)}>
+      <Link to={`/${data.mediaType || mediaType}/${data.id}`} className={clsx(styles.imgLink)}>
         <Image
           src={`${images?.baseUrl}w220_and_h330_face${data?.posterPath}`}
           className={clsx(styles.cardImgWrap)}
         />
       </Link>
-      <div className={clsx(styles.cardBody)}>
+      <Link to={`/${data.mediaType || mediaType}/${data.id}`} className={clsx(styles.cardBody)}>
         <span>
           <AiFillStar
             style={{ color: '#f5c518', marginRight: "2px" }}
@@ -31,11 +31,11 @@ function Card({ data, className }) {
           />
           {data?.voteAverage}
         </span>
-        <Link to="/" className={clsx(styles.cardName)}>
+        <div className={clsx(styles.cardName)}>
           {data?.title || data?.originalName}
-        </Link>
-        <h5>{dayjs(data?.firstAirDate || data?.firstAirDate).format('MMM D, YYYY')}</h5>
-      </div>
+        </div>
+        <h5>{dayjs(data?.firstAirDate || data?.releaseDate).format('MMM D, YYYY')}</h5>
+      </Link>
     </div>
   );
 }

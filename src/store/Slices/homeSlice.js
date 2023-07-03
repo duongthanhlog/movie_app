@@ -10,31 +10,15 @@ export const fetchConfigUrl = createAsyncThunk(
     }
 )
 
-export const fetchGenres = createAsyncThunk(
-    'genre/getchGenre',
-    async (mediaType) => {
-        const data = await fetchDataFromApi(`genre/${mediaType}/list`)
-        return data
-    }
-)
-
-
 const homeSlice = createSlice({
     name: 'movieUrl',
     initialState: {
         url : {},
-        genres : []
-    },
-    reducers : {
- 
     },
     extraReducers(builder) {
         builder
         .addCase(fetchConfigUrl.fulfilled, (state, action) => {
             state.url = action.payload
-        })
-        .addCase(fetchGenres.fulfilled, (state, action) => {
-            state.genres = action.payload
         })
       }
 })

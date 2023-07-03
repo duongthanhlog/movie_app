@@ -1,10 +1,11 @@
-import { Container } from "react-bootstrap";
+import styles from './ContentWrapper.module.scss'
+import clsx from "clsx";
 
-function ContentWrapper({ children }) {
+function ContentWrapper({ children, className }) {
   return (
-    <Container fluid>
-      <Container fluid="xl">{children}</Container>
-    </Container>
+    <div className={clsx(styles.container, className)}>
+      {children}
+    </div>
   );
 }
 

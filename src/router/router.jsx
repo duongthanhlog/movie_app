@@ -8,6 +8,8 @@ import MainLayout from "@/layouts/MainLayout/MainLayout";
 import App from "@/App";
 import Explore from "@/pages/Explore/Explore";
 import Details from "@/pages/Details/Details";
+import NotFound from "@/pages/NotFound/NotFound";
+import exploreLoader from "./exploreLoader";
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
@@ -54,11 +56,16 @@ const router = createBrowserRouter([
           {
             path: ':mediaType',
             element: <Explore/>,
+            loader : exploreLoader
           },
         ],
       },
     ],
   },
+  {
+    path : '*',
+    element : <NotFound/>
+  }
 ]);
 
 export default router;

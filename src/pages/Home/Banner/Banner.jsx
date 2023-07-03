@@ -6,6 +6,7 @@ import useFetch from "@/hooks/useFetch";
 import { useSelector } from "react-redux";
 import { selectHomeUrl } from "@/store/selectors";
 import { Container } from "react-bootstrap";
+import ContentWrapper from "@/components/ContentWrapper/ContentWrapper";
 
 function Banner() {
   const [background, setBackground] = useState("");
@@ -30,7 +31,7 @@ function Banner() {
         }}
         className={clsx(styles.banner)}
       ></div>
-      <Container fluid="xl">
+      <ContentWrapper>
         <div className={clsx(styles.bannerTitle)}>
           <h1>
             Welcome.
@@ -38,7 +39,7 @@ function Banner() {
           <p> Millions of movies, TV shows and people to discover. Explore
             now.</p>
         </div>
-      </Container>
+      </ContentWrapper>
     </div>
   );
 }
