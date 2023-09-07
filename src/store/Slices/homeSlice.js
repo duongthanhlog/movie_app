@@ -10,16 +10,28 @@ export const fetchConfigUrl = createAsyncThunk(
     }
 )
 
+export const fetchLanguage = createAsyncThunk(
+    'movieUrl/fetchLanguage',
+    async () => {
+        const data = await fetchDataFromApi('/configuration/languages')
+        return data
+    }
+)
+
 const homeSlice = createSlice({
     name: 'movieUrl',
     initialState: {
         url : {},
+        language : []
     },
     extraReducers(builder) {
         builder
         .addCase(fetchConfigUrl.fulfilled, (state, action) => {
             state.url = action.payload
         })
+        .addCase(fetchLanguage.fulfilled, (state, action) => {
+            state.language = action.payload
+        } )
       }
 })
 

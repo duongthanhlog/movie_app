@@ -2,7 +2,7 @@
 @import 'src/scss/mixin';
 
 .cardItem{
-    color:white;
+    color: white;
     border-radius: 4px;
     overflow: hidden;
     border: 1px solid rgb(44, 44, 44);
@@ -57,7 +57,7 @@
     }
     .cardName {
             font-size: 1.5rem;
-            color:white;
+            color: white;
             @include webkitLine(3);
             min-height: 7.2rem;
 
@@ -68,7 +68,7 @@
     }
 
     .trailerButton {
-        color:white;
+        color: white;
         margin: 10px auto 0 auto;
         @include size(100px, 40px);
         font-size: 1.4rem;

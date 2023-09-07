@@ -1,69 +1,71 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
-import svgLoader from 'vite-svg-loader'
-import viteImagemin from 'vite-plugin-imagemin'
-import svgr from 'vite-plugin-svgr'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import svgLoader from 'vite-svg-loader';
+import viteImagemin from 'vite-plugin-imagemin';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
-  plugins: [react(), svgr({ 
-    svgrOptions: {
-      // svgr options
-    },
-  }), svgLoader(), viteImagemin({
-    gifsicle: {
-      optimizationLevel: 7,
-      interlaced: false,
-    },
-    optipng: {
-      optimizationLevel: 7,
-    },
-    mozjpeg: {
-      quality: 20,
-    },
-    pngquant: {
-      quality: [0.8, 0.9],
-      speed: 4,
-    },
-    svgo: {
-      plugins: [
-        {
-          name: 'removeViewBox',
-        },
-        {
-          name: 'removeEmptyAttrs',
-          active: false,
-        },
-      ],
-    },
-  }),
-],
-  server: {
-    port: 3000,
-    host: true
-  },
-  resolve :  {
-    alias : {
-      '@' : path.resolve(__dirname,'./src')
-    }
-  },
-  css : {
-    modules : {
-      generateScopedName: "[folder]__[local]___[hash:base64:5]",
-    }
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      loader: {
-        ".js": "jsx",
+   plugins: [
+      react(),
+      svgr({
+         svgrOptions: {
+            // svgr options
+         },
+      }),
+      svgLoader(),
+      viteImagemin({
+         gifsicle: {
+            optimizationLevel: 7,
+            interlaced: false,
+         },
+         optipng: {
+            optimizationLevel: 7,
+         },
+         mozjpeg: {
+            quality: 20,
+         },
+         pngquant: {
+            quality: [0.8, 0.9],
+            speed: 4,
+         },
+         svgo: {
+            plugins: [
+               {
+                  name: 'removeViewBox',
+               },
+               {
+                  name: 'removeEmptyAttrs',
+                  active: false,
+               },
+            ],
+         },
+      }),
+   ],
+
+   server: {
+      port: 3000,
+      host: true,
+   },
+   resolve: {
+      alias: {
+         '@': path.resolve(__dirname, './src'),
       },
-    },
-  },
-  esbuild: {
-    loader: "jsx", // OR "jsx"
-    include: [
-      "src/**/*.jsx",
-      "node_modules/**/*.jsx",
-    ],
-  },
-})
+   },
+   css: {
+      modules: {
+         generateScopedName: '[folder]__[local]___[hash:base64:5]',
+      },
+   },
+   optimizeDeps: {
+      esbuildOptions: {
+         loader: {
+            '.js': 'jsx',
+         },
+      },
+   },
+   esbuild: {
+      loader: 'jsx',
+      include: ['src/**/*.jsx', 'node_modules/**/*.jsx'],
+   },
+});

@@ -2,52 +2,54 @@
 @import 'src/scss/mixin';
 
 .container {
-    width: 100vw;
-    height: 100vh;
-    bottom: 0;
-    z-index: 40;
-    background-color: var(--secondary-color);
-    padding: 40px 180px;
-    position: fixed;
+   position: fixed;
+   z-index: 1000;
+   @include size(100vw, 100vh);
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: var(--secondary-color);
+   padding: 40px 180px;
 }
 
 .heading {
-    @include dflex(row, space-between, center)
+   @include dflex(row, space-between, center);
 }
 
 .closeIcon {
-    font-size: 2rem;
-    background-color: var(--main-color);
-    @include dflex(row, center, center);
-    padding: 1.4rem;
-    border-radius: 50%;
-    border: none;
+   font-size: 2rem;
+   background-color: var(--main-color);
+   @include dflex(row, center, center);
+   padding: 1.4rem;
+   border-radius: 50%;
+   border: none;
 
-    &:hover {
-        filter: brightness(90%);
-    }
+   &:hover {
+      filter: brightness(90%);
+   }
 }
 
 .menu {
-    margin-top: 30px;
-    h1 {
-        color:white;
-        font-size: 2.8rem;
-        font-weight: 600;
-        margin-bottom: 1.2rem;
-        cursor: default;
-    }
-    .menuHeadingIcon {
-        color: var(--main-color);
-        margin-right: 8px;
-    }
-    .menuItem {
-        color:white;
-        font-size: 1.6rem;  
-        margin-left: 3.8rem;
-        line-height: 3rem;
-        &:hover {
-            text-decoration: underline;
-        } 
-    }
+   margin-top: 30px;
+   h1 {
+      color: white;
+      font-size: 2.8rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      cursor: default;
+   }
+   .menuHeadingIcon {
+      color: var(--main-color);
+      margin-right: 8px;
+   }
+   .menuItem {
+      color: white;
+      font-size: 1.6rem;
+      margin-left: 3.8rem;
+      line-height: 3rem;
+      &:hover {
+         text-decoration: underline;
+      }
+   }
 }

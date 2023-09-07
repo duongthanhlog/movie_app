@@ -7,7 +7,7 @@
 }
 .socials {
     text-align: center;
-    color:white;
+    color: white;
     @include dflex(row, center);
     margin: 16px 0;
 
@@ -35,7 +35,7 @@
     li {
         padding: 8px;
         font-size: 1.6rem;
-        color:white;
+        color: white;
         &:hover {
             text-decoration: underline;
         }

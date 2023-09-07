@@ -1,23 +1,28 @@
-import { Outlet } from "react-router";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchConfigUrl } from "./store/Slices/homeSlice";
-import Modal from "./components/Modal/Modal";
-
+import { Outlet, useLocation } from 'react-router';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchConfigUrl, fetchLanguage } from './store/Slices/homeSlice';
+import Modal from './components/Modal/Modal';
 
 function App() {
-  const dispatch = useDispatch()
+   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchConfigUrl());
-  }, [dispatch])
+   const { pathname } = useLocation();
 
-  return (
+   useEffect(() => {
+      window.scrollTo(0, 0);
+   }, [pathname]);
+
+   useEffect(() => {
+      dispatch(fetchConfigUrl());
+      dispatch(fetchLanguage());
+   }, [dispatch]);
+
+   return (
       <div className="App">
-        <Outlet />
-        <Modal />
+         <Outlet />
       </div>
-  );
+   );
 }
 
 export default App;
