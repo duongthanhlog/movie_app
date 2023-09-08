@@ -23,7 +23,7 @@ const sortByData = [
   { value: "original_title.asc", label: "Title (A-Z)" },
   { value: "original_title.desc", label: "Title (Z-A)" },
 ];
-function Sort({ onchangeSort, label }) {
+function Sort({ onchange, label }) {
   const [open, setOpen] = useState(false)
 
   const selectSortRef = useClickOutside(() => {
@@ -42,7 +42,7 @@ function Sort({ onchangeSort, label }) {
         <Popper className={clsx(styles.optionsWrap)}>
           {sortByData.map(item => (
             <div
-              onClick={() => onchangeSort(item)}
+              onClick={() => onchange(item)}
               className={clsx(styles.option)}
               key={uuidv4()}
               value={item.value}

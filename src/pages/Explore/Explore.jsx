@@ -13,29 +13,24 @@ import Button from '@/components/Button/Button';
 import Sort from '@/pages/Explore/Sort';
 import Card from '@/components/Card/Card';
 import { changeGenres, changeSortValue } from '@/store/Slices/sortSlice';
+import axios from 'axios';
 
 function Explore() {
-   const dispatch = useDispatch();
    const { mediaType } = useParams();
+   const { genres } = useLoaderData();
 
-   const [page, setPage] = useState(1);
    const [data, setData] = useState([]);
-
    const [enableSearch, setEnableSearch] = useState(false);
-   const [sortText, setSortText] = useState('Popularity Descending');
-   const [sortValue, setSortValue] = useState('popularity.desc');
-   const [genreIdList, setGenreIdList] = useState([]);
    const [open, setOpen] = useState({
       sort: false,
       filter: false,
    });
+   
+   const [page, setPage] = useState(1);
+   const [sortText, setSortText] = useState('Popularity Descending');
+   const [sortValue, setSortValue] = useState('popularity.desc');
+   const [genreIdList, setGenreIdList] = useState([]);
 
-   const { genres } = useLoaderData();
-   // const { genreIds } = useSelector(selectFilterGenre);
-
-   // useEffect(() => {
-   //   dispatch(getGenreIds(genreIds));
-   // }, [genreIds]);
 
    const toggleSortButton = () => {
       setOpen((prev) => ({ ...prev, sort: !open.sort }));
@@ -53,32 +48,38 @@ function Explore() {
    };
 
    const handleFilterMovie = () => {
+      const filters = {
+         with_genres : genreIdList.join(','),
+         sort_by : sortValue,
+      }
+      fetchInitData(filters)
       setEnableSearch(false);
-      dispatch(changeGenres(genreIdList));
-      dispatch(changeSortValue(sortValue));
-      const filter = {};
-      filter.page = 1;
-      fetchInitData(filter);
    };
 
-   const fetchInitData = async (filter) => {
-      const res = await request.get(`/discover/${mediaType}`, filter);
-      setData(res.data);
+
+   const fetchInitData = async (filters) => {
+      const data = await fetchDataFromApi(`/discover/${mediaType}`, filters);
+      setData(data);
       setPage((prev) => prev + 1);
    };
 
    const handleLoadMore = async () => {
-      const res = await fetchDataFromApi(`/discover/${mediaType}?page=${page}`);
+      const filters = {
+         with_genres : genreIdList.join(','),
+         sort_by : sortValue,
+         page : page
+      }
+      const data = await fetchDataFromApi(`/discover/${mediaType}`, filters);
       setData((prev) => ({
          ...prev,
-         results: [...prev.results, ...res.results],
+         results: [...prev.results, ...data.results],
       }));
       setPage((prev) => prev + 1);
    };
 
    useEffect(() => {
-      const filter = {};
-      fetchInitData(filter);
+      const filters = {};
+      fetchInitData(filters);
    }, [mediaType]);
 
    return (
@@ -91,7 +92,7 @@ function Explore() {
                {open.sort && (
                   <div className={clsx(styles.filterBody)}>
                      <p>Sort Results By</p>
-                     <Sort onchangeSort={handleChangeSort} label={sortText} />
+                     <Sort onchange={handleChangeSort} label={sortText} />
                      <p>Genres</p>
                      <ul className={clsx(styles.genreList)}>
                         {genres?.map((genre) => {

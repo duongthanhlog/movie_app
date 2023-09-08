@@ -28,8 +28,9 @@
     .cardBody {
         padding: 8px;
         background-color: $card-background;
-        @include dflex(column, flex-end);
+        @include dflex(column, space-between);
         @include radius(0, 0, 4px, 4px);
+        flex: 1;
 
         &:hover {
             color: unset;
@@ -60,6 +61,7 @@
             color: white;
             @include webkitLine(3);
             min-height: 7.2rem;
+            flex: 1;
 
 
         &:hover {
