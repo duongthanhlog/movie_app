@@ -1,8 +1,8 @@
 @mixin dflex($direction : null, $content: null, $items: null) {
     display: flex;
     flex-direction: $direction;
-    align-items: $items;
     justify-content: $content;
+    align-items: $items;
 }
 
 @mixin radius($topLeft, $topRight : $topLeft, $bottomRight: $topLeft, $bottomLeft: $topLeft) {
@@ -14,7 +14,7 @@
 
 @mixin after($top, $right : null, $bottom: null, $left : null) {
     position: absolute;
-    content : '';
+    content: '';
     display: block;
     top: $top;
     left: $left;
@@ -25,7 +25,7 @@
 
 @mixin before($top, $right : null, $bottom: null, $left : null) {
     position: absolute;
-    content : '';
+    content: '';
     display: block;
     top: $top;
     left: $left;
@@ -45,4 +45,16 @@
     -webkit-line-clamp: $line;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@mixin tablet {
+    @media (min-width : 740px) and (max-width : 1023px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width : 739px) {
+        @content;
+    }
 }

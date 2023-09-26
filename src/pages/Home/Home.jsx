@@ -8,9 +8,9 @@ function Home() {
   return (
     <div className={clsx(styles.container)}>
       <Banner />
-      <Carosel itemCount={7} title='Top pick' subTitle='TV shows and movies just for you' endPoint='day'/>
-      {/* <VideoCards/> */}
-      <Carosel itemCount={7} title='Top 10 on IMDb this week' endPoint='week'/>
+      <Carosel itemCount={7} title='Top pick' subTitle='TV shows and movies just for you' endPoint='day' />
+      {/* <VideoCards /> */}
+      <Carosel itemCount={7} title='Top 10 on IMDb this week' endPoint='week' />
     </div>
   );
 }

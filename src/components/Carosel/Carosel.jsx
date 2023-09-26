@@ -8,6 +8,7 @@ import useFetch from '@/hooks/useFetch';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
 import NextButton from './NextButton';
 import PrevButton from './PrevButton';
+import { Container } from 'reactstrap';
 
 function Carosel({ title, subTitle, headingSection, endPoint, itemCount }) {
    const { data } = useFetch(`/trending/movie/${endPoint}`);

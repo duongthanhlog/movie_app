@@ -1,3 +1,6 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
 .container {
    background-color: var(--primary-color);
 }
@@ -15,4 +18,12 @@
    display: grid;
    grid-template-columns: 260px 1fr;
    gap: 30px;
+
+   @include tablet () {
+      grid-template-columns: 1fr;
+   }
+
+   @include mobile () {
+      grid-template-columns: unset
+   }
 }

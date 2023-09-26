@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 
 import styles from './Details.module.scss';
 import useFetch from '@/hooks/useFetch';
@@ -12,6 +12,7 @@ import Button from '@/components/Button/Button';
 import { FaFacebook, FaLink } from 'react-icons/fa';
 import { BsInstagram, BsTwitter } from 'react-icons/bs';
 import Image from '@/components/Image/Image';
+import { Container } from 'react-bootstrap';
 
 function Details() {
    const { id, mediaType } = useParams();
@@ -69,13 +70,11 @@ function Details() {
                         <span style={{ color: '#e5e5e5' }}>{` (${dayjs(detail?.releaseDate).year()})`}</span>
                      </a>
                   </h2>
-
                   <div className={clsx(styles.facts)}>
                      <span>{dayjs(detail.releaseDate).format('DD/MM/YYYY')}</span>
                      <span className={clsx(styles.genres)}>{genres}</span>
                      <span className={clsx(styles.runtime)}>{runTime}</span>
                   </div>
-
                   <div className="d-flex align-items-center">
                      <AiFillStar
                         style={{

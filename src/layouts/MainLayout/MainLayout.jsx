@@ -6,6 +6,7 @@ import styles from './MainLayout.module.scss';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import ContentWrapper from '@/components/ContentWrapper/ContentWrapper';
+import { Container } from 'react-bootstrap';
 
 function MainLayout() {
    const [title, setTitle] = useState('');
@@ -24,14 +25,14 @@ function MainLayout() {
    return (
       <div className={clsx(styles.container)}>
          <Header />
-         <ContentWrapper>
+         <Container fluid="xl">
             <div className={clsx(styles.content)}>
                <h1 className={clsx(styles.title)}>{title}</h1>
                <section className={clsx(styles.section)}>
                   <Outlet />
                </section>
             </div>
-         </ContentWrapper>
+         </Container>
          <Footer />
       </div>
    );

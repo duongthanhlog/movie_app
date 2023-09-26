@@ -28,6 +28,7 @@ html {
    --secondary-color: #292929;
    --main-color: #f5c518;
 }
+
 ul {
    margin: 0;
    padding: 0;
@@ -63,11 +64,48 @@ a {
 
 // override bootstrap
 @media (min-width: 1200px) {
-   .container,
+
    .container-lg,
    .container-md,
    .container-sm,
    .container-xl {
       max-width: 1240px;
    }
+}
+
+
+.l-2 {
+   padding: 0 7.5px;
+   flex: 0 0 auto;
+   width: 16.66666667%;
+}
+
+.l-3 {
+   padding: 0 7.5px;
+   flex: 0 0 auto;
+   width: 25%;
+}
+
+.l-4 {
+   padding: 0 7.5px;
+   flex: 0 0 auto;
+   width: 33.33333333%;
+}
+
+.l-5 {
+   padding: 0 7.5px;
+   flex: 0 0 auto;
+   width: 20%;
+}
+
+.l-6 {
+   padding: 0 7.5px;
+   flex: 0 0 auto;
+   width: 50% !important;
+}
+
+.l-12 {
+   padding: 0 7.5px;
+   flex: 0 0 auto;
+   width: 100%;
 }

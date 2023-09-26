@@ -2,7 +2,6 @@ import { Outlet, useLocation } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchConfigUrl, fetchLanguage } from './store/Slices/homeSlice';
-import Modal from './components/Modal/Modal';
 
 function App() {
    const dispatch = useDispatch();

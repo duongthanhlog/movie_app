@@ -8,15 +8,18 @@ import router from "./router/router";
 import store from "./store/store";
 import { ThemeProvider } from "react-bootstrap";
 import ContextProvider from "./context/Context";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
+const queryClient = new QueryClient()
 root.render(
   <Provider store={store}>
     <GlobalStyles>
-      <ThemeProvider breakpoints={["xl", "md", "sm", "xs"]}>
+      <ThemeProvider breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}>
         <ContextProvider>
-          <RouterProvider router={router}/>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+          </QueryClientProvider>
         </ContextProvider>
       </ThemeProvider>
     </GlobalStyles>

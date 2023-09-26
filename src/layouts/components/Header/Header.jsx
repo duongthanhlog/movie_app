@@ -22,7 +22,7 @@ function Header() {
 
    return (
       <header className={clsx(styles.container)}>
-         <ContentWrapper>
+         <Container fluid="xl">
             <div className={clsx(styles.content)}>
                <Link to="/">
                   <Logo className={clsx(styles.logo)} />
@@ -41,17 +41,25 @@ function Header() {
 
                <Search />
 
-               <Button primary leftIcon={<BsFillBookmarkPlusFill size="1.6rem" />} className={clsx(styles.watchList)}>
+               <Button
+                  primary
+                  leftIcon={<BsFillBookmarkPlusFill size="1.6rem" />}
+                  className={clsx(styles.watchList)}
+               >
                   Watch list
                </Button>
-               <Button primary className={clsx(styles.signIn)}>
+               <Button to={`/signin`} primary className={clsx(styles.signIn)}>
                   Sign in
                </Button>
-               <Button primary rightIcon={<AiFillCaretDown size="1rem" />} className={clsx(styles.languages)}>
+               <Button
+                  primary
+                  rightIcon={<AiFillCaretDown size="1rem" />}
+                  className={clsx(styles.languages)}
+               >
                   EN
                </Button>
             </div>
-         </ContentWrapper>
+         </Container>
       </header>
    );
 }

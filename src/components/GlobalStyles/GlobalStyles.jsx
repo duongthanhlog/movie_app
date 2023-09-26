@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import './GlobalStyles.scss'
 
 
-function GlobalStyles({children}) {
+function GlobalStyles({ children }) {
     return children
 }
 

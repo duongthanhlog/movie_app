@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { AiOutlineSearch, AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
-import { memo, useEffect, useLayoutEffect, useMemo, useState, useTransition } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+
 
 import useClickOutside from '@/hooks/useClickOutSide';
 import styles from './Search.module.scss';
@@ -14,11 +14,11 @@ import { selectSearchResult } from '@/store/selectors';
 import { useCallback } from 'react';
 import useDebounce from '@/hooks/useDebounce';
 import Spinners from './Spinner';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function Search() {
    const dispatch = useDispatch();
-
+   const { mediaType } = useParams()
    const { result: searchResult, loading, noResult } = useSelector(selectSearchResult);
 
    const [openFilter, setOpenFilter] = useState(false);

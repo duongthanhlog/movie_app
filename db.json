@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "name": "adsd",
+      "email": "adsd@gmail.com",
+      "password": "20012001",
+      "confirmPassword": "20012001",
+      "watchList": [],
+      "favoriteList": [],
+      "id": 1
+    },
+    {
+      "name": "adsdadad",
+      "email": "adsdadad@gmail.com",
+      "password": "20012001",
+      "confirmPassword": "20012001",
+      "watchList": [],
+      "favoriteList": [],
+      "id": 2
+    },
+    {
+      "name": "Dương Thanh Long",
+      "email": "adasd@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "watchList": [],
+      "favoriteList": [],
+      "id": 3
+    }
+  ]
+}

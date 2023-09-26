@@ -1,4 +1,15 @@
+@import 'src/scss/variable';
+@import 'src/scss/mixin';
+
 .container {
-    max-width: 1140px;
+    max-width: 1200px;
     margin: 0 auto;
+
+    @include tablet () {
+        // max-width: 400px;
+    }
+
+    @include mobile () {
+        // max-width: 800px;
+    }
 }

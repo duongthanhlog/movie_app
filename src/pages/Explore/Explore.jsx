@@ -1,40 +1,26 @@
 import clsx from 'clsx';
 import { useEffect, useState, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router';
+import { useLoaderData, useParams } from 'react-router';
 
 import styles from './Explore.module.scss';
-import request, { fetchDataFromApi } from '@/utils/httpRequest';
-import { selectFilterGenre, selectGenre, selectHomeUrl, selectSortValue } from '@/store/selectors';
+import { fetchDataFromApi } from '@/utils/httpRequest';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 import Button from '@/components/Button/Button';
-// import { getGenreIds } from "@/store/Slices/filterGenresSlice";
 import Sort from '@/pages/Explore/Sort';
 import Card from '@/components/Card/Card';
-import { changeGenres, changeSortValue } from '@/store/Slices/sortSlice';
-import axios from 'axios';
 
 function Explore() {
    const { mediaType } = useParams();
    const { genres } = useLoaderData();
 
-   const [data, setData] = useState([]);
    const [enableSearch, setEnableSearch] = useState(false);
-   const [open, setOpen] = useState({
-      sort: false,
-      filter: false,
-   });
-   
+   // const [openSort, setOpenSort] = useState(false);
    const [page, setPage] = useState(1);
-   const [sortText, setSortText] = useState('Popularity Descending');
-   const [sortValue, setSortValue] = useState('popularity.desc');
+   const [sortText, setSortText] = useState('');
+   const [sortValue, setSortValue] = useState('');
    const [genreIdList, setGenreIdList] = useState([]);
-
-
-   const toggleSortButton = () => {
-      setOpen((prev) => ({ ...prev, sort: !open.sort }));
-   };
+   const [data, setData] = useState([]);
 
    const handleChangeSort = (item) => {
       setEnableSearch(true);
@@ -43,19 +29,20 @@ function Explore() {
    };
 
    const handleChangeGenres = (id) => {
-      setGenreIdList((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
       setEnableSearch(true);
+      setGenreIdList((prev) =>
+         prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      );
    };
 
    const handleFilterMovie = () => {
       const filters = {
-         with_genres : genreIdList.join(','),
-         sort_by : sortValue,
-      }
-      fetchInitData(filters)
+         with_genres: genreIdList.toString(),
+         sort_by: sortValue,
+      };
+      fetchInitData(filters);
       setEnableSearch(false);
    };
-
 
    const fetchInitData = async (filters) => {
       const data = await fetchDataFromApi(`/discover/${mediaType}`, filters);
@@ -65,10 +52,10 @@ function Explore() {
 
    const handleLoadMore = async () => {
       const filters = {
-         with_genres : genreIdList.join(','),
-         sort_by : sortValue,
-         page : page
-      }
+         with_genres: genreIdList.toString(),
+         sort_by: sortValue,
+         page: page,
+      };
       const data = await fetchDataFromApi(`/discover/${mediaType}`, filters);
       setData((prev) => ({
          ...prev,
@@ -80,44 +67,60 @@ function Explore() {
    useEffect(() => {
       const filters = {};
       fetchInitData(filters);
+      setSortText('');
+      setGenreIdList([]);
+      setEnableSearch(false);
    }, [mediaType]);
 
    return (
       <>
-         <div className={clsx(styles.container)}>
+         <div className={clsx(styles.leftPanel)}>
             <div className={clsx(styles.filterPanel)}>
-               <div onClick={toggleSortButton} className={clsx(styles.filterTitle)}>
-                  Sort {open.sort ? <BiChevronDown size="2.4rem" /> : <BiChevronRight size="2.4rem" />}
+               {/* <div onClick={() => setOpenSort(!openSort)} className={clsx(styles.filterTitle)}>
+                  Sort {openSort ? <BiChevronDown size="2.4rem" /> : <BiChevronRight size="2.4rem" />}
+               </div> */}
+               {/* {openSort && ( */}
+               <div className={clsx(styles.filterBody)}>
+                  <p>Sort Results By</p>
+                  <Sort
+                     onchange={handleChangeSort}
+                     label={sortText}
+                     defaultValue={'Popularity Descending'}
+                  />
+                  <p>Genres</p>
+                  <ul className={clsx(styles.genreList)}>
+                     {genres?.map((genre) => {
+                        return (
+                           <li
+                              onClick={() => handleChangeGenres(genre.id)}
+                              className={clsx(styles.tag, {
+                                 [styles.active]: genreIdList.includes(
+                                    genre.id
+                                 ),
+                              })}
+                              key={genre.id}
+                           >
+                              {genre.name}
+                           </li>
+                        );
+                     })}
+                  </ul>
                </div>
-               {open.sort && (
-                  <div className={clsx(styles.filterBody)}>
-                     <p>Sort Results By</p>
-                     <Sort onchange={handleChangeSort} label={sortText} />
-                     <p>Genres</p>
-                     <ul className={clsx(styles.genreList)}>
-                        {genres?.map((genre) => {
-                           return (
-                              <li
-                                 onClick={() => handleChangeGenres(genre.id)}
-                                 className={clsx(styles.tag, {
-                                    [styles.active]: genreIdList.includes(genre.id),
-                                 })}
-                                 key={genre.id}
-                              >
-                                 {genre.name}
-                              </li>
-                           );
-                        })}
-                     </ul>
-                  </div>
-               )}
+               {/* )} */}
             </div>
-
-            <Button disabled={!enableSearch} onClick={handleFilterMovie} className={clsx(styles.searchButton)}>
+            <Button
+               disabled={!enableSearch}
+               onClick={handleFilterMovie}
+               className={clsx(styles.searchButton)}
+            >
                Search
             </Button>
          </div>
-
+         {data?.results?.length === 0 && (
+            <h1 style={{ color: 'white', fontSize: '4rem' }}>
+               No Result Found
+            </h1>
+         )}
          <InfiniteScroll
             dataLength={data?.results?.length || 0}
             next={handleLoadMore}
