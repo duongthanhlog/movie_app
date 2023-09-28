@@ -9,22 +9,6 @@
     }
 }
 
-.menuBar {
-    display: flex;
-    justify-content: center;
-    color: white;
-
-    .menuItem {
-        padding: 10px 0;
-        margin-right: 30px;
-        font-size: 1.3rem;
-        font-weight: 400;
-
-        &.active {
-            border-bottom: 4px solid var(--main-color);
-        }
-    }
-}
 
 .content {
     @include dflex(row, center, center);
@@ -296,4 +280,9 @@
             margin: 0 6px 8px 0;
         }
     }
+}
+
+
+.loading {
+    height: 100vh;
 }

@@ -8,7 +8,8 @@
     position: relative;
     height: $header-height;
     @include dflex(row, null, center);
-    width: 100%;
+    @include size(100%, auto);
+    min-height: 64px;
 }
 
 .logo {

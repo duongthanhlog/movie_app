@@ -6,7 +6,7 @@ export const signUp = createAsyncThunk(
     'signUp/user',
     async (newUser) => {
         const users = await fetchDataFromApi('http://localhost:3500/users')
-        const accountAlreadyExists = await users.find((user) => {
+        const accountAlreadyExists = await users.some((user) => {
             return user.name === newUser.name || user.email === newUser.email
         })
         if (!accountAlreadyExists) {

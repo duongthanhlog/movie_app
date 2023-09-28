@@ -8,52 +8,33 @@ import Explore from '@/pages/Explore/Explore';
 import Details from '@/pages/Details/Details';
 import NotFound from '@/pages/NotFound/NotFound';
 import exploreLoader from './exploreLoader';
-import Contact from '../pages/Contact/Contact';
 import SignUp from '@/pages/SignUp/SignUp';
 import SignIn from '@/pages/SignIn/SignIn';
 
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Route path="/" element={<App />}>
-//       <Route path="/" element={<HeaderOnly />}>
-//         <Route index element={<Home />} />
-//       </Route>
-//       <Route
-//         loader={() => ({
-//           popular: "Popular Movies",
-//           tv: "Popular Tv",
-//         })}
-//         element={<MainLayout />}
-//         path="/discover"
-//       >
-//         <Route loader={() => "movie"} path="movie" element={<Discover />}/>
-//         <Route loader={() => "tv"} path="tv" element={<Discover />} />
-//       </Route>
-//     </Route>
-//   )
-// );
-
 const router = createBrowserRouter([
    {
+      path: '/',
       element: <App />,
+      errorElement: <NotFound />,
       children: [
          {
+            path: '/',
             element: <HeaderOnly />,
             children: [
                {
-                  path: '/',
+                  index: true,
                   element: <Home />,
                },
                {
-                  path: ':mediaType/:id/',
+                  path: ':mediaType/:id',
                   element: <Details />,
                },
                {
-                  path: '/signup',
+                  path: 'signup',
                   element: <SignUp />,
                },
                {
-                  path: '/signin',
+                  path: 'signin',
                   element: <SignIn />,
                },
             ],
@@ -70,10 +51,6 @@ const router = createBrowserRouter([
             ],
          },
       ],
-   },
-   {
-      path: '*',
-      element: <NotFound />,
    },
    // {
    //   path: '/contact',

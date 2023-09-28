@@ -16,35 +16,20 @@ function Card({ data, className }) {
 
    return (
       <div className={clsx(styles.cardItem, className)}>
-         <Link
-            to={`/${data.mediaType || mediaType}/${data.id}`}
-            className={clsx(styles.imgLink)}
-         >
+         <Link to={`/${data.mediaType || mediaType}/${data.id}`} className={clsx(styles.imgLink)}>
             <Image
                src={`${images?.baseUrl}w220_and_h330_face${data?.posterPath}`}
                className={clsx(styles.cardImgWrap)}
                width="100%"
             />
          </Link>
-         <Link
-            to={`/${data.mediaType || mediaType}/${data.id}`}
-            className={clsx(styles.cardBody)}
-         >
+         <Link to={`/${data.mediaType || mediaType}/${data.id}`} className={clsx(styles.cardBody)}>
             <span>
-               <AiFillStar
-                  style={{ color: '#f5c518', marginRight: '2px' }}
-                  size="1.6rem"
-               />
+               <AiFillStar style={{ color: '#f5c518', marginRight: '2px' }} size="1.6rem" />
                {data?.voteAverage}
             </span>
-            <div className={clsx(styles.cardName)}>
-               {data?.title || data?.originalName}
-            </div>
-            <h5>
-               {dayjs(data?.firstAirDate || data?.releaseDate).format(
-                  'MMM D, YYYY'
-               )}
-            </h5>
+            <div className={clsx(styles.cardName)}>{data?.title || data?.originalName}</div>
+            <h5>{dayjs(data?.firstAirDate || data?.releaseDate).format('MMM D, YYYY')}</h5>
          </Link>
       </div>
    );

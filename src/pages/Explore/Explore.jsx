@@ -1,26 +1,29 @@
 import clsx from 'clsx';
 import { useEffect, useState, memo } from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Explore.module.scss';
 import { fetchDataFromApi } from '@/utils/httpRequest';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 import Button from '@/components/Button/Button';
 import Sort from '@/pages/Explore/Sort';
 import Card from '@/components/Card/Card';
+import { useDispatch } from 'react-redux';
+import { setGlobalLoading } from '@/store/Slices/globalLoadingSlice';
 
 function Explore() {
+   const dispatch = useDispatch();
+
    const { mediaType } = useParams();
    const { genres } = useLoaderData();
 
    const [enableSearch, setEnableSearch] = useState(false);
-   // const [openSort, setOpenSort] = useState(false);
    const [page, setPage] = useState(1);
    const [sortText, setSortText] = useState('');
    const [sortValue, setSortValue] = useState('');
    const [genreIdList, setGenreIdList] = useState([]);
-   const [data, setData] = useState([]);
+   const [data, setData] = useState({});
 
    const handleChangeSort = (item) => {
       setEnableSearch(true);
@@ -45,17 +48,28 @@ function Explore() {
    };
 
    const fetchInitData = async (filters) => {
+      dispatch(setGlobalLoading(true));
       const data = await fetchDataFromApi(`/discover/${mediaType}`, filters);
       setData(data);
+      dispatch(setGlobalLoading(false));
       setPage((prev) => prev + 1);
    };
 
    const handleLoadMore = async () => {
       const filters = {
-         with_genres: genreIdList.toString(),
-         sort_by: sortValue,
          page: page,
       };
+      if (sortValue) {
+         filters.sort_by = sortValue;
+      } else {
+         delete filters.sort_by;
+      }
+      if (genreIdList.length > 0) {
+         filters.with_genres = genreIdList.toString();
+      } else {
+         delete filters.with_genres;
+      }
+
       const data = await fetchDataFromApi(`/discover/${mediaType}`, filters);
       setData((prev) => ({
          ...prev,
@@ -63,6 +77,8 @@ function Explore() {
       }));
       setPage((prev) => prev + 1);
    };
+
+   console.log(data?.results?.length);
 
    useEffect(() => {
       const filters = {};
@@ -94,9 +110,7 @@ function Explore() {
                            <li
                               onClick={() => handleChangeGenres(genre.id)}
                               className={clsx(styles.tag, {
-                                 [styles.active]: genreIdList.includes(
-                                    genre.id
-                                 ),
+                                 [styles.active]: genreIdList.includes(genre.id),
                               })}
                               key={genre.id}
                            >
@@ -117,14 +131,12 @@ function Explore() {
             </Button>
          </div>
          {data?.results?.length === 0 && (
-            <h1 style={{ color: 'white', fontSize: '4rem' }}>
-               No Result Found
-            </h1>
+            <h1 style={{ color: 'white', fontSize: '4rem' }}>No Result Found</h1>
          )}
          <InfiniteScroll
             dataLength={data?.results?.length || 0}
             next={handleLoadMore}
-            hasMore={page < data.totalPages}
+            hasMore={page < data?.totalPages}
             className={clsx(styles.cardList)}
          >
             {data?.results?.map((card) => {

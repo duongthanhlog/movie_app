@@ -4,6 +4,7 @@ import homeReducer from './Slices/homeSlice'
 import sortReducer from './Slices/sortSlice'
 import searchReducer from './Slices/searchSlice';
 import userReducer from './Slices/userSlice'
+import globalLoadingReducer from './Slices/globalLoadingSlice';
 
 
 const store = configureStore({
@@ -11,7 +12,8 @@ const store = configureStore({
         home: homeReducer,
         sort: sortReducer,
         search: searchReducer,
-        signUp: userReducer
+        globalLoading : globalLoadingReducer,
+        signUp: userReducer,
     }
 })
 

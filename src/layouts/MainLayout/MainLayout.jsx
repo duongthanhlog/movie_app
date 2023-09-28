@@ -6,7 +6,7 @@ import styles from './MainLayout.module.scss';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import ContentWrapper from '@/components/ContentWrapper/ContentWrapper';
-import { Container } from 'react-bootstrap';
+import GlobalLoading from '@/components/GlobalLoading/GlobalLoading';
 
 function MainLayout() {
    const [title, setTitle] = useState('');
@@ -24,15 +24,19 @@ function MainLayout() {
 
    return (
       <div className={clsx(styles.container)}>
+         <GlobalLoading />
+
          <Header />
-         <Container fluid="xl">
+
+         <ContentWrapper>
             <div className={clsx(styles.content)}>
                <h1 className={clsx(styles.title)}>{title}</h1>
                <section className={clsx(styles.section)}>
                   <Outlet />
                </section>
             </div>
-         </Container>
+         </ContentWrapper>
+
          <Footer />
       </div>
    );

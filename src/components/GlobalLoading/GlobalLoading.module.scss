@@ -1,0 +1,40 @@
+@import 'src/scss/mixin';
+@import 'src/scss/variable';
+
+
+.container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--secondary-color);
+    z-index: 999;
+    @include dflex(row, center, center);
+}
+.process {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: blue;
+    right: 0;
+    height: 4px;
+    background-color: rgb(170, 137, 30);
+    z-index: 99999;
+
+    &::after {
+        @include after(0,0, null, 20px) {
+            height: 100%;
+            width: 800px;
+            background-color: var(--main-color);
+            animation: loadingFade ease-in-out 1.6s infinite;
+        }
+    }
+}
+
+@keyframes loadingFade {
+    0% {
+        left: -120%;
+    }
+    100% {
+        left: 100%;
+    }
+}

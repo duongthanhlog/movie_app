@@ -13,16 +13,15 @@ import { useContext } from 'react';
 import { Logo } from '@/assests/Icons';
 import { ModalContext } from '@/context/Context';
 import { memo } from 'react';
-import ContentWrapper from '@/components/ContentWrapper/ContentWrapper';
 import Modal from '@/components/Modal/Modal';
-import { createPortal } from 'react-dom';
+import ContentWrapper from '@/components/ContentWrapper/ContentWrapper';
 
 function Header() {
    const { openModal } = useContext(ModalContext);
 
    return (
       <header className={clsx(styles.container)}>
-         <Container fluid="xl">
+         <ContentWrapper>
             <div className={clsx(styles.content)}>
                <Link to="/">
                   <Logo className={clsx(styles.logo)} />
@@ -59,7 +58,7 @@ function Header() {
                   EN
                </Button>
             </div>
-         </Container>
+         </ContentWrapper>
       </header>
    );
 }

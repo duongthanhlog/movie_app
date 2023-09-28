@@ -13,3 +13,13 @@
         font-size: 1.4rem;
     }
 }
+
+.signUpBtn {
+    display: inline-block;
+    color: var(--main-color);
+
+    &:hover {
+       color: var(--main-color);
+       text-decoration: underline;
+    }
+}

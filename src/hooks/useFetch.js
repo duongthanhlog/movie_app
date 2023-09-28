@@ -1,23 +1,27 @@
+import { setGlobalLoading } from "@/store/Slices/globalLoadingSlice"
 import { fetchDataFromApi } from "@/utils/httpRequest"
 import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 
 function useFetch (url) {
-    const [data, setData] = useState([])
-    const [isLoading, setIsloading] = useState(true)
+    const [data, setData] = useState()
     const [error, setError] = useState(null)
-    
+
+    const dispatch = useDispatch()
+
     useEffect(() => {
+        dispatch(setGlobalLoading(true))
         fetchDataFromApi(url)
             .then(data => {
                 setData(data)
-                setIsloading(false)
+                dispatch(setGlobalLoading(false))
             })
             .catch(err => {
                 setError(err)
-                setIsloading(false)
+                dispatch(setGlobalLoading(false))
             })
     }, [url])
-    return {data, error, isLoading}
+    return {data, error}
 }
 
 export default useFetch
